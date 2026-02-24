@@ -1,4 +1,16 @@
 package com.test.springdatajpaclass67.entity;
 
-public class ApiResponse {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class ApiResponse<T> {
+
+    private String message;
+
+    private Integer status;
+
+    private T emp;
+
 }
