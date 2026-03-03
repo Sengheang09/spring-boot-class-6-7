@@ -6,14 +6,15 @@ import com.test.springdatajpaclass67.repo.EmployeeRepository;
 import com.test.springdatajpaclass67.service.Impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
+
     @Autowired
     EmployeeServiceImpl empService;
 
@@ -23,4 +24,27 @@ public class EmployeeController {
     ) {
         return empService.createData(emp);
     }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<EmployeeEntity>>> getAll(){
+        return empService.getAllData();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<Optional<EmployeeEntity>>> getById(@PathVariable Long id){
+        return empService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(
+            @PathVariable Long id,
+            @RequestBody EmployeeEntity emp
+    ){
+        return empService.updateData(id, emp);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        return empService.deleteData(id);
+    }
+
 }

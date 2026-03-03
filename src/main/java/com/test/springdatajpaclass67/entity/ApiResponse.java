@@ -11,6 +11,6 @@ public class ApiResponse<T> {
 
     private Integer status;
 
-    private T emp;
+    private T empData;
 
 }
