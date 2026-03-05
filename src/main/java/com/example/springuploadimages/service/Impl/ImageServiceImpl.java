@@ -1,4 +1,49 @@
 package com.example.springuploadimages.service.Impl;
 
-public class ImageServiceImpl {
+import com.example.springuploadimages.entity.ImageEntity;
+import com.example.springuploadimages.repo.ImageRepository;
+import com.example.springuploadimages.service.ImageService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+
+@Service
+public class ImageServiceImpl implements ImageService {
+
+    ImageRepository repo;
+    Path uploadPath;
+
+    public ImageServiceImpl(ImageRepository repo, Path uploadPath){
+        this.repo = repo;
+        this.uploadPath = uploadPath;
+    }
+
+    @Override
+    public ResponseEntity<ImageEntity> uploadImage(ImageEntity image, MultipartFile file) throws IOException {
+        if(file==null || file.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        String fileName = UUID.randomUUID() +"_"+ file.getOriginalFilename();
+
+        Path filePath = uploadPath.resolve(fileName);
+
+        String fileUrl = "http://localhost:8080";
+
+        Path path = Paths.get(fileUrl + "/uploads/" + fileName);
+        file.transferTo(path.toFile());
+
+        image.setImageUrl(fileName);
+
+        ImageEntity saved = repo.save(image);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+
+    }
 }

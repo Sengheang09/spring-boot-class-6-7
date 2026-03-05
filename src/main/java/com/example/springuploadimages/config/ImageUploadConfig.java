@@ -25,7 +25,6 @@ public class ImageUploadConfig {
                 throw new RuntimeException(e);
             }
         }
-
         return path;
     }
 
