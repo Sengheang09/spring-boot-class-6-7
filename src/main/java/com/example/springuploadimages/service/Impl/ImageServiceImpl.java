@@ -33,17 +33,16 @@ public class ImageServiceImpl implements ImageService {
         String fileName = UUID.randomUUID() +"_"+ file.getOriginalFilename();
 
         Path filePath = uploadPath.resolve(fileName);
+        file.transferTo(filePath.toFile());
 
-        String fileUrl = "http://localhost:8080";
-
-        Path path = Paths.get(fileUrl + "/uploads/" + fileName);
-        file.transferTo(path.toFile());
+//        "http://localhost:8080"+"/uploads/"+filePath
 
         image.setImageUrl(fileName);
 
         ImageEntity saved = repo.save(image);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        saved.setImageUrl("http://localhost:8080"+"/uploads/"+fileName);
 
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 }
