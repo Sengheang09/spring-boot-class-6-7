@@ -29,4 +29,6 @@ public class ImageEntity {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+
 }
