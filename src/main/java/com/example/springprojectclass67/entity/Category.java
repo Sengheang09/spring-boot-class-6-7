@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_category")
+@Table(name = "categories")
 public class Category {
 
     @Id
