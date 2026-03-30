@@ -1,6 +1,9 @@
 package com.example.springprojectclass67.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.apachecommons.CommonsLog;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -10,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "orders")
 public class Orders {
     @Id

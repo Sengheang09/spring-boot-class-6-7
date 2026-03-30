@@ -23,7 +23,6 @@ public class Payment {
     @Column(name = "payment_date")
     private LocalDateTime paymentDate;
 
-
     @Column(nullable = false)
     private BigDecimal amount;
 

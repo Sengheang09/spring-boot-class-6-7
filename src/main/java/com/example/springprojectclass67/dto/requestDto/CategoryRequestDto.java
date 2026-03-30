@@ -16,4 +16,5 @@ public class CategoryRequestDto {
 
     @Size(max = 500 , message = "Description must be less than 500 characters")
     private String description;
+
 }
